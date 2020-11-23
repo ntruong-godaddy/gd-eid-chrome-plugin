@@ -2,5 +2,16 @@
     "name": "GoDaddy EID Plugin",
     "version": "1.0",
     "description": "Easily identify EIDs / traffic calls during a browsing session",
-    "manifest_version": 2
+    "manifest_version": 2,
+    "background": {
+        "scripts": ["./background.js"]
+    },
+    "options_page": "./options.html",
+    "browser_action": {
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "tabs", 
+        "https://account.godaddy.com/products"
+    ]
 }
