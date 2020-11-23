@@ -1,0 +1,6 @@
+{
+    "name": "GoDaddy EID Plugin",
+    "version": "1.0",
+    "description": "Easily identify EIDs / traffic calls during a browsing session",
+    "manifest_version": 2
+}
