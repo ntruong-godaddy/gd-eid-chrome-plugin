@@ -3,16 +3,20 @@
     "version": "1.0",
     "description": "Easily identify EIDs / traffic calls during a browsing session",
     "manifest_version": 2,
-    "background": {
-        "scripts": ["./src/background.js"]
-    },
     "options_page": "./html/options.html",
+    "devtools_page": "./html/devtools.html",
     "browser_action": {
         "default_title": "EID MUBARAK",
         "default_popup": "./html/popup.html"
     },
     "permissions": [
         "tabs",
-        "storage"
-    ]
+        "storage",
+        "*://*.godaddy.com/*"
+    ],
+    "content_scripts": [ {
+      "js": [ "./src/mubarak.js" ],
+      "matches": [ "*://*.godaddy.com/*" ],
+      "run_at": "document_end"
+    } ]
 }
