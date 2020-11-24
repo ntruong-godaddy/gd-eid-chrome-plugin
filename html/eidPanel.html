@@ -5,15 +5,14 @@
         <script type="text/javascript" src="../src/panel.js"></script>
     </head>
     <body>
-        <p><button onclick="sortTable()">Sort</button></p>
         <div id="main">
             <div class="datagrid">
                 <table id="eidTable" class="tablesorter">
                     <thead>
                         <tr>
-                            <th class="medColumn">Name</th>
-                            <th class="medColumn">Time Stamp</th>
-                            <th class="medColumn">Event Type</th>
+                            <th class="medColumn">Name <button id="sort-0-asc">&#9650;</button> <button id="sort-0-des">&#9660;</button></th>
+                            <th class="medColumn">Time Stamp <button id="sort-1-asc">&#9650;</button> <button id="sort-1-des">&#9660;</button></th>
+                            <th class="medColumn">Event Type <button id="sort-2-asc">&#9650;</button> <button id="sort-2-des">&#9660;</button></th>
                         </tr>
                     </thead>
                     <tbody id="eidTableBody">
