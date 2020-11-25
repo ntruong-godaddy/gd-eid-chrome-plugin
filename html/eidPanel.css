@@ -10,8 +10,12 @@ table, th, td {
     font-weight: 400;
 }
 
-.datagrid table td, .datagrid table th {
+.datagrid table td {
     padding: 3px 10px;
+}
+
+.datagrid table th {
+    padding: 8px 10px;
 }
 
 .tablesorter-default td {
@@ -25,7 +29,16 @@ tr, td {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    background-color: transparent !important;
+}
+
+thead button {
+    border: none;
+    background: #D8EFEF;
+    cursor: pointer;
+}
+
+tbody tr:hover {
+    background-color: #D8EFEF;
 }
 
 td {
@@ -48,4 +61,9 @@ td {
     border-spacing: 0;
     margin: 10px 0 15px;
     text-align: left;
+}
+
+.ascii-art {
+    text-align: center;
+    margin-top: 10px;
 }
