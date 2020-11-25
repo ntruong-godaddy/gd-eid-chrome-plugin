@@ -8,80 +8,78 @@ chrome.devtools.network.onRequestFinished.addListener(
           const trafficObject = JSON.parse('{"' + decodeURI(trafficData).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
           // console.log('trafficObject', trafficObject);
           let trafficObjectUSRIN = 'empty';
-          if (trafficObject.usrin !== null) {
+          if (trafficObject.usrin) {
             const toBeParsed = `{"${trafficObject.usrin.replaceAll('%2C', '":"').replaceAll('^', '", "')} "}`
             try {
               // console.log('attempt to parse ', toBeParsed);
               trafficObjectUSRIN = JSON.parse(toBeParsed);
             } catch (e) {
-              console.log(`failed to parse the usrin for ${trafficObject.e_id}, will use unparsed usrin for extra data column! got this error ${e}`);
+              // console.error(`failed to parse the usrin for ${trafficObject.e_id}, will use unparsed usrin for extra data column! got this error ${e}`);
               trafficObjectUSRIN = toBeParsed;
             }
           }
           let eidTableBody = document.getElementById('eidTableBody');
           const timestamp = new Date(parseInt(trafficObject.timestamp));
-          eidTableBody.innerHTML += '<tr>' + 
-                                      '<td>' + trafficObject.e_id + '</td>' + 
-                                      '<td>' + timestamp.toDateString() + ' ' + timestamp.toLocaleTimeString('en-US', { hour12: false }) + '</td>' + 
-                                      '<td>' + trafficObject.eventtype + '</td>' + 
+
+          // adding it to the table
+          eidTableBody.innerHTML += '<tr>' +
+                                      '<td>' + trafficObject.e_id + '</td>' +
+                                      '<td>' + timestamp.toDateString() + ' ' + timestamp.toLocaleTimeString('en-US', { hour12: false }) + '</td>' +
+                                      '<td>' + trafficObject.eventtype + '</td>' +
                                       '<td>' + JSON.stringify(trafficObjectUSRIN)+ '</td>' + // right now I'm just stringifying it, but we can pull specific things out maybe?
                                     '</tr>';
       }
   }
 );
 
-chrome.tabs.onUpdated.addListener(function (tabId , info) {
-  if (info.status === 'complete') {
-    let eidTableBody = document.getElementById('eidTableBody');
-    eidTableBody.innerHTML = '';
+chrome.storage.onChanged.addListener(function(changes, namespace) {
+  for (var key in changes) {
+    var storageChange = changes[key];
+    console.log('Storage key "%s" in namespace "%s" changed. ' +
+                'Old value was "%s", new value is "%s".',
+                key,
+                namespace,
+                storageChange.oldValue,
+                storageChange.newValue);
   }
 });
 
+// chrome.tabs.onUpdated.addListener(function (tabId , info) {
+//   if (info.status === 'complete') {
+//     let eidTableBody = document.getElementById('eidTableBody');
+//     eidTableBody.innerHTML = '';
+//   }
+// });
+
 document.addEventListener('DOMContentLoaded', function() {
-  var link = document.getElementById('sort-0-asc');
-  // onClick's logic below:
-  link.addEventListener('click', function() {
+  const link0Asc = document.getElementById('sort-0-asc');
+  link0Asc.addEventListener('click', function() {
     sortTable(0, true);
   });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-  var link = document.getElementById('sort-0-des');
-  // onClick's logic below:
-  link.addEventListener('click', function() {
+  const link0Desc = document.getElementById('sort-0-des');
+  link0Desc.addEventListener('click', function() {
     sortTable(0, false);
   });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-  var link = document.getElementById('sort-1-asc');
-  // onClick's logic below:
-  link.addEventListener('click', function() {
+  const link1Asc = document.getElementById('sort-1-asc');
+  link1Asc.addEventListener('click', function() {
     sortTable(1, true);
   });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-  var link = document.getElementById('sort-1-des');
-  // onClick's logic below:
-  link.addEventListener('click', function() {
+  const link1Desc = document.getElementById('sort-1-des');
+  link1Desc.addEventListener('click', function() {
     sortTable(1, false);
   });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-  var link = document.getElementById('sort-2-asc');
-  // onClick's logic below:
-  link.addEventListener('click', function() {
+  const link2Asc = document.getElementById('sort-2-asc');
+  link2Asc.addEventListener('click', function() {
     sortTable(2, true);
   });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-  var link = document.getElementById('sort-2-des');
-  // onClick's logic below:
-  link.addEventListener('click', function() {
+  const link2Desc = document.getElementById('sort-2-des');
+  link2Desc.addEventListener('click', function() {
     sortTable(2, false);
+  });
+  const reset = document.getElementById('reset');
+  reset.addEventListener('click', function() {
+    let eidTableBody = document.getElementById('eidTableBody');
+    eidTableBody.innerHTML = '';
   });
 });
 
@@ -154,6 +152,6 @@ function searchNames() {
       } else {
         tr[i].style.display = "none";
       }
-    }       
+    }
   }
 }
