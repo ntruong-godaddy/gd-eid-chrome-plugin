@@ -6,12 +6,10 @@ chrome.devtools.network.onRequestFinished.addListener(
           request.request.url.startsWith('https://events.api.godaddy.com/pageEvents.aspx')) {
           const trafficData = request.request.url.replace('https://events.api.godaddy.com/pageEvents.aspx?', '');
           const trafficObject = JSON.parse('{"' + decodeURI(trafficData).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
-          // console.log('trafficObject', trafficObject);
           let trafficObjectUSRIN = 'empty';
           if (trafficObject.usrin) {
             const toBeParsed = `{"${trafficObject.usrin.replaceAll('%2C', '":"').replaceAll('^', '", "')} "}`
             try {
-              // console.log('attempt to parse ', toBeParsed);
               trafficObjectUSRIN = JSON.parse(toBeParsed);
             } catch (e) {
               // console.error(`failed to parse the usrin for ${trafficObject.e_id}, will use unparsed usrin for extra data column! got this error ${e}`);
@@ -31,25 +29,6 @@ chrome.devtools.network.onRequestFinished.addListener(
       }
   }
 );
-
-chrome.storage.onChanged.addListener(function(changes, namespace) {
-  for (var key in changes) {
-    var storageChange = changes[key];
-    console.log('Storage key "%s" in namespace "%s" changed. ' +
-                'Old value was "%s", new value is "%s".',
-                key,
-                namespace,
-                storageChange.oldValue,
-                storageChange.newValue);
-  }
-});
-
-// chrome.tabs.onUpdated.addListener(function (tabId , info) {
-//   if (info.status === 'complete') {
-//     let eidTableBody = document.getElementById('eidTableBody');
-//     eidTableBody.innerHTML = '';
-//   }
-// });
 
 document.addEventListener('DOMContentLoaded', function() {
   console.log('adding EventListener to DOM for searchNames');

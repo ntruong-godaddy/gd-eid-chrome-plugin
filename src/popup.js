@@ -34,7 +34,7 @@ getCurrentTab(tab => {
                                     '<td>' + response.requests[row].eidName + '</td>' + 
                                     '<td>' + timestamp.toDateString() + ' ' + timestamp.toLocaleTimeString('en-US', { hour12: false }) + '</td>' + 
                                     '<td>' + response.requests[row].eventType + '</td>' +
-                                    '<td>' + JSON.stringify(trafficObjectUSRIN)+ '</td>' +
+                                    // '<td>' + JSON.stringify(trafficObjectUSRIN)+ '</td>' +
                                   '</tr>';
       }
     }

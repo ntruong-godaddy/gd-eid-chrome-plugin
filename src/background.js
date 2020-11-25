@@ -12,7 +12,6 @@
     if (!tabStorage.hasOwnProperty(tabId) ) { // || !tabStorage[tabId].requests.hasOwnProperty(requestId)) {
       return;
     }
-    console.log('details: ', details)
 
     const trafficData = details?.url.replace('https://events.api.godaddy.com/pageEvents.aspx?', '');
     const trafficObject = JSON.parse('{"' + decodeURI(trafficData).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
@@ -24,7 +23,6 @@
       extraData: ''
     }
 
-    console.log(tabStorage[tabId].requests[details.requestId]);
   }, networkFilters);
 
   // Log error in the plug-in
@@ -44,7 +42,6 @@
       extraData: 'ERROR'
     }
 
-    console.log(tabStorage[tabId].requests[requestId]);
   }, networkFilters);
 
   // When a new tab is created, add it to tab storage (start tracking it)
@@ -82,10 +79,8 @@
 
   // when the popup is opened, send that tab a message with all eids for the tab
   chrome.runtime.onMessage.addListener((msg, sender, response) => {
-    console.log('in onMessage');
     switch (msg.type) {
         case 'popupInit':
-            console.log('in popupInit');
             response(tabStorage[msg.tabId]);
             break;
         case 'pageReload':

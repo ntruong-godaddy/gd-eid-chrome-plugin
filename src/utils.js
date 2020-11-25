@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function sortTable(index, direction) {
-  console.log('sortTable');
   var table, rows, switching, i, x, y, shouldSwitch;
   table = document.getElementById("eidTableBody");
   switching = true;
@@ -75,7 +74,6 @@ function sortTable(index, direction) {
 }
 
 function searchNames() {
-  console.log('searchNames');
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("searchNames");
   filter = input.value.toUpperCase();
