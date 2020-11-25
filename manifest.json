@@ -23,5 +23,6 @@
       "js": [ "./src/mubarak.js" ],
       "matches": [ "*://*.godaddy.com/*" ],
       "run_at": "document_end"
-    } ]
+    } ],
+    "content_security_policy":"script-src 'self' 'sha256-UBarFhJN5WLs34ZLYke8vHVrOAc4fFd8HzEKGwykv1g='; object-src 'self'"
 }
