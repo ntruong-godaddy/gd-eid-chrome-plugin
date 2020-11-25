@@ -3,16 +3,19 @@
     <head>
         <link rel="stylesheet" type="text/css" href="./eidPanel.css" rel="stylesheet" />
         <script type="text/javascript" src="../src/popup.js"></script>
+        <script type="text/javascript" src="../src/utils.js"></script>
     </head>
     <body>
         <div id="main">
+            <button id="reset">Reset</button>
             <div class="datagrid">
                 <table id="eidTable" class="tablesorter">
                     <thead>
                         <tr>
-                            <th class="medColumn">Name</th>
-                            <th class="medColumn">Time Stamp</th>
-                            <th class="medColumn">Event Type</th>
+                            <th>EID <button id="sort-0-asc">&#9650;</button> <button id="sort-0-des">&#9660;</button></th>
+                            <th>Time Stamp <button id="sort-1-asc">&#9650;</button> <button id="sort-1-des">&#9660;</button></th>
+                            <th>Event Type <button id="sort-2-asc">&#9650;</button> <button id="sort-2-des">&#9660;</button></th>
+                            <!-- <th>Extra Data</th> -->
                         </tr>
                     </thead>
                     <tbody id="eidTableBody">
