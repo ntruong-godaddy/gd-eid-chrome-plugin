@@ -1,3 +1,24 @@
+a, a:visited {
+    color: #09757a;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+a:hover {
+    background-color: #D8EFEF
+}
+
+button {
+    border: none;
+    background: #D8EFEF;
+    cursor: pointer;
+}
+
+#reset {
+    border: 1px solid #111;
+    margin-bottom: 10px;
+}
+
 table, th, td {
     border: 1px solid #111;
     border-collapse: collapse;
@@ -28,12 +49,6 @@ tr, td {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-}
-
-thead button {
-    border: none;
-    background: #D8EFEF;
-    cursor: pointer;
 }
 
 tbody tr:hover {
@@ -73,7 +88,7 @@ td {
     margin-bottom: 12px; /* Add some space below the input */
 }
 
-.ascii-art {
+.ascii-art, .github-link  {
     text-align: center;
     margin-top: 10px;
 }
