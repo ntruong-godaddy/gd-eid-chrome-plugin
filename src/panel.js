@@ -6,15 +6,25 @@ chrome.devtools.network.onRequestFinished.addListener(
           request.request.url.startsWith('https://events.api.godaddy.com/pageEvents.aspx')) {
           const trafficData = request.request.url.replace('https://events.api.godaddy.com/pageEvents.aspx?', '');
           const trafficObject = JSON.parse('{"' + decodeURI(trafficData).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
-          console.log('trafficObject', trafficObject);
-          // const trafficObjectUSRIN = JSON.parse('{"' + decodeURI(trafficObject.usrin).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
-          // console.log('trafficObjectUSRIN', trafficObjectUSRIN);
+          // console.log('trafficObject', trafficObject);
+          let trafficObjectUSRIN = 'empty';
+          if (trafficObject.usrin !== null) {
+            const toBeParsed = `{"${trafficObject.usrin.replaceAll('%2C', '":"').replaceAll('^', '", "')} "}`
+            try {
+              // console.log('attempt to parse ', toBeParsed);
+              trafficObjectUSRIN = JSON.parse(toBeParsed);
+            } catch (e) {
+              console.log(`failed to parse the usrin for ${trafficObject.e_id}, will use unparsed usrin for extra data column! got this error ${e}`);
+              trafficObjectUSRIN = toBeParsed;
+            }
+          }
           let eidTableBody = document.getElementById('eidTableBody');
           const timestamp = new Date(parseInt(trafficObject.timestamp));
           eidTableBody.innerHTML += '<tr>' + 
                                       '<td>' + trafficObject.e_id + '</td>' + 
                                       '<td>' + timestamp.toDateString() + ' ' + timestamp.toLocaleTimeString('en-US', { hour12: false }) + '</td>' + 
                                       '<td>' + trafficObject.eventtype + '</td>' + 
+                                      '<td>' + JSON.stringify(trafficObjectUSRIN)+ '</td>' + // right now I'm just stringifying it, but we can pull specific things out maybe?
                                     '</tr>';
       }
   }
