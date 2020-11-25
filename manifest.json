@@ -3,6 +3,11 @@
     "version": "1.0",
     "description": "Easily identify EIDs / traffic calls during a browsing session",
     "manifest_version": 2,
+    "icons": {
+        "16": "./images/crescent-16.png",
+        "48": "./images/crescent-48.png",
+       "128": "./images/crescent-128.png"
+    },
     "options_page": "./html/options.html",
     "devtools_page": "./html/devtools.html",
     "browser_action": {
