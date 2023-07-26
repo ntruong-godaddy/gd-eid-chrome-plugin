@@ -2,7 +2,9 @@
   const tabStorage = {};
   const networkFilters = {
     urls: [
-      'https://events.api.godaddy.com/pageEvents.aspx*'
+      'https://events.api.godaddy.com/pageEvents.aspx*',
+      'https://events.api.test-godaddy.com/pageEvents.aspx*',
+      'https://events.api.dev-godaddy.com/pageEvents.aspx*'
     ]
   };
 
@@ -13,7 +15,7 @@
       return;
     }
 
-    const trafficData = details?.url.replace('https://events.api.godaddy.com/pageEvents.aspx?', '');
+    const trafficData = details?.url.replace(/https:\/\/events\.api\.(test\-|dev\-)?godaddy\.com\/pageEvents\.aspx\?/, '');
     const trafficObject = JSON.parse('{"' + decodeURI(trafficData).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
 
     tabStorage[tabId].requests[requestId] = {
@@ -32,7 +34,7 @@
       return;
     }
 
-    const trafficData = details?.url.replace('https://events.api.godaddy.com/pageEvents.aspx?', '');
+    const trafficData = details?.url.replace(/https:\/\/events\.api\.(test\-|dev\-)?godaddy\.com\/pageEvents\.aspx\?/, '');
     const trafficObject = JSON.parse('{"' + decodeURI(trafficData).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}');
 
     tabStorage[tabId].requests[requestId] = {
@@ -84,7 +86,7 @@
             response(tabStorage[msg.tabId]);
             break;
         case 'pageReload':
-            
+
         default:
             response('unknown request');
             break;
