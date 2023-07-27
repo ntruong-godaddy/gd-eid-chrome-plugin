@@ -2,33 +2,36 @@
     "name": "GoDaddy EID Plugin",
     "version": "1.0",
     "description": "Easily identify EIDs / traffic calls during a browsing session",
-    "manifest_version": 2,
+    "manifest_version": 3,
     "icons": {
         "16": "./images/crescent-16.png",
         "48": "./images/crescent-48.png",
-       "128": "./images/crescent-128.png"
+        "128": "./images/crescent-128.png"
     },
     "options_page": "./html/options.html",
     "devtools_page": "./html/devtools.html",
-    "browser_action": {
+    "action": {
         "default_title": "EID MUBARAK",
         "default_popup": "./html/popup.html"
     },
     "background": {
-        "scripts": [ "./src/background.js" ],
-        "persistant": true
+        "service_worker": "./src/background.js"
     },
     "permissions": [
         "tabs",
         "storage",
-        "webRequest",
+        "webRequest"
+    ],
+    "host_permissions": [
         "*://*.godaddy.com/*",
         "*://*.secureserver.com/*"
     ],
     "content_scripts": [ {
-      "js": [ "./src/mubarak.js" ],
-      "matches": [ "*://*.godaddy.com/*" ],
-      "run_at": "document_end"
+        "js": [ "./src/mubarak.js" ],
+        "matches": [ "*://*.godaddy.com/*" ],
+        "run_at": "document_end"
     } ],
-    "content_security_policy":"script-src 'self' 'sha256-UBarFhJN5WLs34ZLYke8vHVrOAc4fFd8HzEKGwykv1g='; object-src 'self'"
+    "content_security_policy": {
+        "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+    }
 }
