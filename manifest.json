@@ -24,11 +24,13 @@
     ],
     "host_permissions": [
         "*://*.godaddy.com/*",
+        "*://*.test-godaddy.com/*",
+        "*://*.dev-godaddy.com/*",
         "*://*.secureserver.com/*"
     ],
     "content_scripts": [ {
         "js": [ "./src/mubarak.js" ],
-        "matches": [ "*://*.godaddy.com/*" ],
+        "matches": [ "*://*.godaddy.com/*", "*://*.test-godaddy.com/*", "*://*.dev-godaddy.com/*" ],
         "run_at": "document_end"
     } ],
     "content_security_policy": {
